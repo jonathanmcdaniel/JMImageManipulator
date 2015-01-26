@@ -15,22 +15,29 @@ function resizeImage(img, desiredWidth, desiredHeight) {
     var heightRatio = getDesiredRatio(img.height, desiredHeight);
     var imageRatio = getImageAspectRatio(img);
 
-    /*
-    portrait images are fine when constrained by width
-    landscape is fine when constrained by height
-     */
-
     //Create Canvas with width and height
     var canvas = document.getElementById("canvas");
     var context = canvas.getContext("2d");
-    if (heightIsContrainingSide(widthRatio, heightRatio) === true){
-        canvas.width = desiredWidth;
-        canvas.height = desiredHeight;
-        context.drawImage(img, 0, 0,desiredHeight/imageRatio, desiredHeight);
+    if (heightIsContrainingSide(widthRatio, heightRatio) === true) {
+        if (isPortraitImage(img) === true) {
+            canvas.width = desiredWidth;
+            canvas.height = desiredHeight;
+            context.drawImage(img, 0, 0, desiredHeight * imageRatio, desiredHeight);
+        } else {
+            canvas.width = desiredWidth;
+            canvas.height = desiredHeight;
+            context.drawImage(img, 0, 0, desiredHeight * imageRatio, desiredHeight);
+        }
     } else {
-        canvas.width = desiredWidth;
-        canvas.height = desiredHeight;
-        context.drawImage(img, 0, 0,desiredWidth, desiredWidth/imageRatio);
+        if (isPortraitImage(img) === true) {
+            canvas.width = desiredWidth;
+            canvas.height = desiredHeight;
+            context.drawImage(img, 0, 0, desiredWidth, desiredWidth / imageRatio);
+        } else {
+            canvas.width = desiredWidth;
+            canvas.height = desiredHeight;
+            context.drawImage(img, 0, 0, desiredWidth, desiredWidth / imageRatio);
+        }
     }
 
     //Extract base64 data from canvas
@@ -41,14 +48,14 @@ function resizeImage(img, desiredWidth, desiredHeight) {
 }
 
 function isPortraitImage(img) {
-    if ( img.height > img.width) {
+    if (img.height > img.width) {
         return true;
     } else {
         return false;
     }
 }
 
-function heightIsContrainingSide (widthRatio, heightRatio) {
+function heightIsContrainingSide(widthRatio, heightRatio) {
     "use strict";
     if (widthRatio > heightRatio) {
         return true;
@@ -57,12 +64,12 @@ function heightIsContrainingSide (widthRatio, heightRatio) {
     }
 }
 
-function getImageAspectRatio (img) {
+function getImageAspectRatio(img) {
     "use strict";
     return (img.width / img.height);
 }
 
-function getDesiredRatio (original, desired) {
+function getDesiredRatio(original, desired) {
     "use strict";
     return (desired / original);
 }
