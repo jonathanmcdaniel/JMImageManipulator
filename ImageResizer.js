@@ -1,4 +1,3 @@
-/* global $ */
 "use strict";
 
 // Constructor
@@ -11,15 +10,17 @@ function ImageResizer() {
 // Private Functions / Properties
 // ---------------------------------------------------------------------------------------
 
-function resizeImage(img, desiredWidth, desiredHeight) {
+function resizeImage(img, desiredWidth, desiredHeight, format) {
 
     //Fit Image in Container Size
     var widthRatio = getDesiredRatio(img.width, desiredWidth);
     var heightRatio = getDesiredRatio(img.height, desiredHeight);
     var imageRatio = getImageAspectRatio(img);
 
+    createCanvas(desiredWidth, desiredHeight);
+
     //Create Canvas with width and height
-    var canvas = document.getElementById("canvas");
+    var canvas = document.getElementById("ImageResizerCanvas");
     var context = canvas.getContext("2d");
     if (heightIsContrainingSide(widthRatio, heightRatio) === true) {
         if (isPortraitImage(img) === true) {
@@ -44,9 +45,9 @@ function resizeImage(img, desiredWidth, desiredHeight) {
     }
 
     //Extract base64 data from canvas
-    var dataURL = canvas.toDataURL("image/jpeg");
-    var base64String = dataURL.replace(/^data:image\/jpeg;base64,/, "");
-
+    var dataURL = canvas.toDataURL("image/" + format);
+    var base64String = dataURL.replace(/^data:image\/(jpeg|png|jpg|gif);base64,/, "");
+    destroyCanvas();
     return base64String;
 }
 
@@ -72,6 +73,19 @@ function getImageAspectRatio(img) {
 
 function getDesiredRatio(original, desired) {
     return (desired / original);
+}
+
+function createCanvas(width, height) {
+    var canvas = document.createElement("canvas");
+    canvas.setAttribute("id", "ImageResizerCanvas");
+    canvas.setAttribute("width", width);
+    canvas.setAttribute("height", height);
+    document.body.appendChild(canvas);
+}
+
+function destroyCanvas() {
+    var canvas = document.getElementById("ImageResizerCanvas");
+    canvas.parentNode.removeChild(canvas);
 }
 
 // Public Functions
