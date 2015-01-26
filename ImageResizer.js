@@ -1,14 +1,17 @@
-/* global $, console */
+/* global $ */
+"use strict";
 
-$(document).ready(function() {
-    "use strict";
-    $("#canvasholder").html("<canvas id=\"canvas\" style=\"border:1px solid #000000; width: 525; height: 400;\"></canvas>");
-    var img = document.getElementById("inputImage");
-    console.log(resizeImage(img, 800, 500));
-});
+// Constructor
+// ---------------------------------------------------------------------------------------
+
+function ImageResizer() {
+
+}
+
+// Private Functions / Properties
+// ---------------------------------------------------------------------------------------
 
 function resizeImage(img, desiredWidth, desiredHeight) {
-    "use strict";
 
     //Fit Image in Container Size
     var widthRatio = getDesiredRatio(img.width, desiredWidth);
@@ -56,7 +59,6 @@ function isPortraitImage(img) {
 }
 
 function heightIsContrainingSide(widthRatio, heightRatio) {
-    "use strict";
     if (widthRatio > heightRatio) {
         return true;
     } else {
@@ -65,11 +67,18 @@ function heightIsContrainingSide(widthRatio, heightRatio) {
 }
 
 function getImageAspectRatio(img) {
-    "use strict";
     return (img.width / img.height);
 }
 
 function getDesiredRatio(original, desired) {
-    "use strict";
     return (desired / original);
 }
+
+// Public Functions
+// ---------------------------------------------------------------------------------------
+
+ImageResizer.prototype = {
+    resizeImage: function(img, desiredWidth, desiredHeight) {
+        return resizeImage(img, desiredWidth, desiredHeight);
+    }
+};
