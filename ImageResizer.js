@@ -92,7 +92,7 @@ function destroyCanvas() {
 // ---------------------------------------------------------------------------------------
 
 ImageResizer.prototype = {
-    resizeImage: function(img, desiredWidth, desiredHeight) {
-        return resizeImage(img, desiredWidth, desiredHeight);
+    resizeImage: function(img, desiredWidth, desiredHeight, format) {
+        return resizeImage(img, desiredWidth, desiredHeight, format);
     }
 };
