@@ -1,6 +1,12 @@
 # JMImageResizer
 A Javascript class to resize an image into a new dimension while keeping the original aspect ratio. It can be thought of as a *scale to fit* function. It will create a new image by resizing the orignal fitting it best within the new constraints.
 
+### Table of Contents
+- [Getting Started](#getting-started)
+- [Script Dependencies](#script-dependencies)
+- [Browser Support](#browser-support)
+- [Future Plans](#future-plans)
+
 ### Getting Started
 1. Add ImageResizer.js to project
 2. Have an image ready to be resized
