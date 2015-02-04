@@ -3,6 +3,7 @@ A Javascript class to resize an image into a new dimension while keeping the ori
 
 ### Table of Contents
 - [Getting Started](#getting-started)
+- [Features](#features)
 - [Script Dependencies](#script-dependencies)
 - [Browser Support](#browser-support)
 - [Future Plans](#future-plans)
@@ -20,6 +21,28 @@ var imageResizer = new ImageResizer();
 
 // Get base64 encoded resized image
 var base64 = imageResizer.resizeImage(img, desiredWidth, desiredHeight, desiredFormat);
+```
+
+### Features
+##### resizeImage(img, desiredWidth, desiredHeight, desiredFormat)
+Takes in an image object, desired width, height and format. Returns a base64 string with the data of the new image. PNG is the default format.
+```
+var imageResizer = new ImageResizer();
+var newImageData = imageResizer.resizeImage(img, desiredWidth, desiredHeight, desiredFormat);
+```
+
+##### isPortraitImage(img)
+Takes in an image object as an argument, returns a boolean.
+```
+var imageResizer = new ImageResizer();
+var portraitImageBoolean = imageResizer.isPortraitImage(img);
+```
+
+##### changeImageFormat(img, desiredFormat)
+Takes in an image object and desired format as arguments. Returns a base64 string with the data of the new image. PNG is the default format.
+```
+var imageResizer = new ImageResizer();
+var newImageData = imageResizer.changeImageFormat(img, desiredFormat);
 ```
 
 ### Script Dependencies
