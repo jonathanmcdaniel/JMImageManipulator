@@ -26,6 +26,7 @@ var base64 = imageManipulator.resizeImage(img, desiredWidth, desiredHeight, desi
 ### Features
 ##### resizeImage(img, desiredWidth, desiredHeight, desiredFormat)
 Takes in an image object, desired width, height and format. Returns a base64 string with the data of the new image. PNG is the default format.
+
 ```
 var imageManipulator = new ImageManipulator();
 var newImageData = imageManipulator.resizeImage(img, desiredWidth, desiredHeight, desiredFormat);
@@ -33,6 +34,7 @@ var newImageData = imageManipulator.resizeImage(img, desiredWidth, desiredHeight
 
 ##### isPortraitImage(img)
 Takes in an image object as an argument, returns a boolean.
+
 ```
 var imageManipulator = new ImageManipulator();
 var portraitImageBoolean = imageManipulator.isPortraitImage(img);
@@ -40,6 +42,7 @@ var portraitImageBoolean = imageManipulator.isPortraitImage(img);
 
 ##### changeImageFormat(img, desiredFormat)
 Takes in an image object and desired format as arguments. Returns a base64 string with the data of the new image. PNG is the default format.
+
 ```
 var imageManipulator = new ImageManipulator();
 var newImageData = imageManipulator.changeImageFormat(img, desiredFormat);
@@ -61,3 +64,5 @@ This class should work on all browsers that support drawing to the html5 canvas.
 
 ### Future Plans
 - Better comments
+- Image Rotation
+- Demo Directory
