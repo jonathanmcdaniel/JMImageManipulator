@@ -51,6 +51,10 @@ function resizeImage(img, desiredWidth, desiredHeight, format) {
     return base64String;
 }
 
+function changeImageFormat(img, format) {
+    return resizeImage(img, img.width, img.height, format);
+}
+
 function isPortraitImage(img) {
     if (img.height > img.width) {
         return true;
@@ -94,5 +98,11 @@ function destroyCanvas() {
 ImageResizer.prototype = {
     resizeImage: function(img, desiredWidth, desiredHeight, format) {
         return resizeImage(img, desiredWidth, desiredHeight, format);
+    },
+    isPortraitImage: function(img) {
+        return isPortraitImage(img);
+    },
+    changeImageFormat: function(img, format) {
+        return changeImageFormat(img, format);
     }
 };

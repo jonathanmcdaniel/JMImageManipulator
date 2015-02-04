@@ -38,5 +38,3 @@ This class should work on all browsers that support drawing to the html5 canvas.
 
 ### Future Plans
 - Better comments
-- Function to only change image format
-- Expose isPortraitImage(img) to prototype
