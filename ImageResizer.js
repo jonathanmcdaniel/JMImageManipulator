@@ -3,7 +3,7 @@
 // Constructor
 // ---------------------------------------------------------------------------------------
 
-function ImageResizer() {
+function ImageManipulator() {
 
 }
 
@@ -95,7 +95,7 @@ function destroyCanvas() {
 // Public Functions
 // ---------------------------------------------------------------------------------------
 
-ImageResizer.prototype = {
+ImageManipulator.prototype = {
     resizeImage: function(img, desiredWidth, desiredHeight, format) {
         return resizeImage(img, desiredWidth, desiredHeight, format);
     },

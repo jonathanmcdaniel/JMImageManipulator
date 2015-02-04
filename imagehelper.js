@@ -1,8 +1,8 @@
 $(document).ready(function() {
     "use strict";
     var img = document.getElementById("inputImage");
-    var imageResizer = new ImageResizer();
-    console.log(imageResizer.resizeImage(img, 800, 500, "png"));
-    console.log(imageResizer.isPortraitImage(img));
-    console.log(imageResizer.changeImageFormat(img, "jpeg"));
+    var imageManipulator = new ImageManipulator();
+    console.log(imageManipulator.resizeImage(img, 800, 500, "png"));
+    console.log(imageManipulator.isPortraitImage(img));
+    console.log(imageManipulator.changeImageFormat(img, "jpeg"));
 });
