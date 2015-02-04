@@ -1,4 +1,4 @@
-# JMImageResizer
+# JMImageManipulator
 A Javascript class to resize an image into a new dimension while keeping the original aspect ratio. It can be thought of as a *scale to fit* function. It will create a new image by resizing the orignal fitting it best within the new constraints.
 
 ### Table of Contents
@@ -9,40 +9,40 @@ A Javascript class to resize an image into a new dimension while keeping the ori
 - [Future Plans](#future-plans)
 
 ### Getting Started
-1. Add ImageResizer.js to project
+1. Add ImageManipulator.js to project
 2. Have an image ready to be resized
-3. Create new ImageResizer object `var imageResizer = new ImageResizer();`
-4. Call resizing function on the object `imageResizer.resizeImage(img, desiredWidth, desiredHeight, desiredFormat);`
+3. Create new ImageManipulator object `var imageManipulator = new ImageManipulator();`
+4. Call resizing function on the object `imageManipulator.resizeImage(img, desiredWidth, desiredHeight, desiredFormat);`
 5. Handle new image returned in base64 format
 
 ```
 // Create Object
-var imageResizer = new ImageResizer();
+var imageManipulator = new ImageManipulator();
 
 // Get base64 encoded resized image
-var base64 = imageResizer.resizeImage(img, desiredWidth, desiredHeight, desiredFormat);
+var base64 = imageManipulator.resizeImage(img, desiredWidth, desiredHeight, desiredFormat);
 ```
 
 ### Features
 ##### resizeImage(img, desiredWidth, desiredHeight, desiredFormat)
 Takes in an image object, desired width, height and format. Returns a base64 string with the data of the new image. PNG is the default format.
 ```
-var imageResizer = new ImageResizer();
-var newImageData = imageResizer.resizeImage(img, desiredWidth, desiredHeight, desiredFormat);
+var imageManipulator = new ImageManipulator();
+var newImageData = imageManipulator.resizeImage(img, desiredWidth, desiredHeight, desiredFormat);
 ```
 
 ##### isPortraitImage(img)
 Takes in an image object as an argument, returns a boolean.
 ```
-var imageResizer = new ImageResizer();
-var portraitImageBoolean = imageResizer.isPortraitImage(img);
+var imageManipulator = new ImageManipulator();
+var portraitImageBoolean = imageManipulator.isPortraitImage(img);
 ```
 
 ##### changeImageFormat(img, desiredFormat)
 Takes in an image object and desired format as arguments. Returns a base64 string with the data of the new image. PNG is the default format.
 ```
-var imageResizer = new ImageResizer();
-var newImageData = imageResizer.changeImageFormat(img, desiredFormat);
+var imageManipulator = new ImageManipulator();
+var newImageData = imageManipulator.changeImageFormat(img, desiredFormat);
 ```
 
 ### Script Dependencies
