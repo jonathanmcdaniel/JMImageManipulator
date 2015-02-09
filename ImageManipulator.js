@@ -20,7 +20,7 @@ function resizeImage(img, desiredWidth, desiredHeight, format) {
     createCanvas(desiredWidth, desiredHeight);
 
     //Create Canvas with width and height
-    var canvas = document.getElementById("ImageResizerCanvas");
+    var canvas = document.getElementById("ImageManipulatorCanvas");
     var context = canvas.getContext("2d");
     if (heightIsContrainingSide(widthRatio, heightRatio) === true) {
         if (isPortraitImage(img) === true) {
@@ -55,6 +55,21 @@ function changeImageFormat(img, format) {
     return resizeImage(img, img.width, img.height, format);
 }
 
+function rotateRight(img, degrees) {
+    createCanvas(img.width, img.height);
+    var canvas = document.getElementById("ImageManipulatorCanvas");
+    var context = canvas.getContext("2d");
+    canvas.width = img.height;
+    canvas.height = img.width;
+    context.translate(img.height, 0);
+    context.rotate(degrees * (Math.PI / 180));
+    context.drawImage(img, 0, 0);
+    var dataURL = canvas.toDataURL();
+    var base64String = dataURL.replace(/^data:image\/(jpeg|png|jpg|gif);base64,/, "");
+    destroyCanvas();
+    return base64String;
+}
+
 function isPortraitImage(img) {
     if (img.height > img.width) {
         return true;
@@ -81,14 +96,14 @@ function getDesiredRatio(original, desired) {
 
 function createCanvas(width, height) {
     var canvas = document.createElement("canvas");
-    canvas.setAttribute("id", "ImageResizerCanvas");
+    canvas.setAttribute("id", "ImageManipulatorCanvas");
     canvas.setAttribute("width", width);
     canvas.setAttribute("height", height);
     document.body.appendChild(canvas);
 }
 
 function destroyCanvas() {
-    var canvas = document.getElementById("ImageResizerCanvas");
+    var canvas = document.getElementById("ImageManipulatorCanvas");
     canvas.parentNode.removeChild(canvas);
 }
 
@@ -104,5 +119,8 @@ ImageManipulator.prototype = {
     },
     changeImageFormat: function(img, format) {
         return changeImageFormat(img, format);
+    },
+    rotateRight: function(img, degrees) {
+        return rotateRight(img, degrees);
     }
 };
