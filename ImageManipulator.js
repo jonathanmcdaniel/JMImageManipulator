@@ -70,6 +70,21 @@ function rotateRight(img, degrees) {
     return base64String;
 }
 
+function rotateLeft(img, degrees) {
+    createCanvas(img.width, img.height);
+    var canvas = document.getElementById("ImageManipulatorCanvas");
+    var context = canvas.getContext("2d");
+    canvas.width = img.height;
+    canvas.height = img.width;
+    context.translate(0, img.width);
+    context.rotate(-degrees * (Math.PI / 180));
+    context.drawImage(img, 0, 0);
+    var dataURL = canvas.toDataURL();
+    var base64String = dataURL.replace(/^data:image\/(jpeg|png|jpg|gif);base64,/, "");
+    destroyCanvas();
+    return base64String;
+}
+
 function isPortraitImage(img) {
     if (img.height > img.width) {
         return true;
@@ -122,5 +137,8 @@ ImageManipulator.prototype = {
     },
     rotateRight: function(img, degrees) {
         return rotateRight(img, degrees);
+    },
+    rotateLeft: function(img, degrees) {
+        return rotateLeft(img, degrees);
     }
 };

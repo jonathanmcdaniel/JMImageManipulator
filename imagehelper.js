@@ -6,4 +6,5 @@ $(document).ready(function() {
     console.log(imageManipulator.isPortraitImage(img));
     console.log(imageManipulator.changeImageFormat(img, "jpeg"));
     console.log(imageManipulator.rotateRight(img, 90));
+    console.log(imageManipulator.rotateLeft(img, 90));
 });
