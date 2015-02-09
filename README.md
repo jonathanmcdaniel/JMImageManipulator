@@ -32,6 +32,15 @@ var imageManipulator = new ImageManipulator();
 var newImageData = imageManipulator.resizeImage(img, desiredWidth, desiredHeight, desiredFormat);
 ```
 
+##### rotateRight(img, degrees)
+Takes in an image object and number of degrees as arguments , returns a base64 string of the new iamge.
+
+```
+var imageManipulator = new ImageManipulator();
+var newImageData = imageManipulator.rotateRight(img, degrees);
+```
+
+
 ##### isPortraitImage(img)
 Takes in an image object as an argument, returns a boolean.
 
@@ -64,5 +73,4 @@ This class should work on all browsers that support drawing to the html5 canvas.
 
 ### Future Plans
 - Better comments
-- Image Rotation
 - Demo Directory
