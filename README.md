@@ -1,5 +1,5 @@
 # JMImageManipulator
-A Javascript class to resize an image into a new dimension while keeping the original aspect ratio. It can be thought of as a *scale to fit* function. It will create a new image by resizing the orignal fitting it best within the new constraints.
+A javascript class to manage basic image manipulation in a modularized container. Resizing the dimensions of an image to fit a contraint while maintaining the aspect ratio is the main function of this class. Rotation is also supported for both clockwise and counter-clockwise movements. The class uses the HTML5 canvas to achieve its goals. The class creates and destroys the canvas as needed so that no additional work or cleanup is required by the developer.
 
 ### Table of Contents
 - [Getting Started](#getting-started)
@@ -40,6 +40,13 @@ var imageManipulator = new ImageManipulator();
 var newImageData = imageManipulator.rotateRight(img, degrees);
 ```
 
+##### rotateLeft(img, degrees)
+Takes in an image object and number of degrees as arguments , returns a base64 string of the new iamge.
+
+```
+var imageManipulator = new ImageManipulator();
+var newImageData = imageManipulator.rotateLeft(img, degrees);
+```
 
 ##### isPortraitImage(img)
 Takes in an image object as an argument, returns a boolean.
