@@ -7,13 +7,51 @@ function ImageManipulator() {
 
 }
 
-// Private Functions / Properties
+
+// Private Function Helpers / Properties
 // ---------------------------------------------------------------------------------------
 
 var mainCanvas;
 var imageQuality = 0.5;
 var imageFormat = "jpeg";
 var canvasBGColor = "#000";
+
+function createCanvas(width, height) {
+    if (typeof mainCanvas == "undefined") {
+        mainCanvas = document.createElement("canvas");
+        mainCanvas.setAttribute("id", "ImageManipulatorCanvas");
+        mainCanvas.setAttribute("width", width);
+        mainCanvas.setAttribute("height", height);
+    }
+    return mainCanvas;
+}
+
+function heightIsContrainingSide(widthRatio, heightRatio) {
+    if (widthRatio > heightRatio) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+function getImageAspectRatio(img) {
+    return (img.width / img.height);
+}
+
+function getDesiredRatio(original, desired) {
+    return (desired / original);
+}
+
+function changeCanvasBGColor(canvas) {
+    var context = canvas.getContext("2d");
+    context.globalCompositeOperation = "destination-over";
+    context.fillStyle = canvasBGColor;
+    context.fillRect(0, 0, canvas.width, canvas.height);
+}
+
+
+// Exposed Private Function Definitions
+// ---------------------------------------------------------------------------------------
 
 function resizeImage(img, desiredWidth, desiredHeight) {
 
@@ -73,45 +111,12 @@ function rotateCounterClockwise(img, degrees) {
     return dataURL;
 }
 
-function changeCanvasBGColor(canvas) {
-    var context = canvas.getContext("2d");
-    context.globalCompositeOperation = "destination-over";
-    context.fillStyle = canvasBGColor;
-    context.fillRect(0, 0, canvas.width, canvas.height);
-}
-
 function isPortraitImage(img) {
     if (img.height > img.width) {
         return true;
     } else {
         return false;
     }
-}
-
-function heightIsContrainingSide(widthRatio, heightRatio) {
-    if (widthRatio > heightRatio) {
-        return true;
-    } else {
-        return false;
-    }
-}
-
-function getImageAspectRatio(img) {
-    return (img.width / img.height);
-}
-
-function getDesiredRatio(original, desired) {
-    return (desired / original);
-}
-
-function createCanvas(width, height) {
-    if (typeof mainCanvas == "undefined") {
-        mainCanvas = document.createElement("canvas");
-        mainCanvas.setAttribute("id", "ImageManipulatorCanvas");
-        mainCanvas.setAttribute("width", width);
-        mainCanvas.setAttribute("height", height);
-    }
-    return mainCanvas;
 }
 
 function destroyCanvas() {
@@ -130,21 +135,22 @@ function setBGColor(hexColor) {
     canvasBGColor = hexColor;
 }
 
-// Public Functions
+
+// Exposed Functions
 // ---------------------------------------------------------------------------------------
 
 ImageManipulator.prototype = {
-    resizeImage: function(img, desiredWidth, desiredHeight, format) {
-        return resizeImage(img, desiredWidth, desiredHeight, format);
-    },
-    isPortraitImage: function(img) {
-        return isPortraitImage(img);
+    resizeImage: function(img, desiredWidth, desiredHeight) {
+        return resizeImage(img, desiredWidth, desiredHeight);
     },
     rotateClockwise: function(img, degrees) {
         return rotateClockwise(img, degrees);
     },
     rotateCounterClockwise: function(img, degrees) {
         return rotateCounterClockwise(img, degrees);
+    },
+    isPortraitImage: function(img) {
+        return isPortraitImage(img);
     },
     destroyCanvas: function() {
         return destroyCanvas();
