@@ -28,15 +28,15 @@ function resizeImage(img, desiredWidth, desiredHeight) {
     canvas.height = desiredHeight;
     if (heightIsContrainingSide(widthRatio, heightRatio) === true) {
         if (isPortraitImage(img) === true) {
-            context.drawImage(img, 0, 0, desiredHeight * imageRatio, desiredHeight);
+            context.drawImage(img, ((canvas.width - (desiredHeight * imageRatio)) / 2), 0, desiredHeight * imageRatio, desiredHeight);
         } else {
-            context.drawImage(img, 0, 0, desiredHeight * imageRatio, desiredHeight);
+            context.drawImage(img, ((canvas.width - (desiredHeight * imageRatio)) / 2), 0, desiredHeight * imageRatio, desiredHeight);
         }
     } else {
         if (isPortraitImage(img) === true) {
-            context.drawImage(img, 0, 0, desiredWidth, desiredWidth / imageRatio);
+            context.drawImage(img, 0, ((canvas.height - (desiredWidth / imageRatio)) / 2), desiredWidth, desiredWidth / imageRatio);
         } else {
-            context.drawImage(img, 0, 0, desiredWidth, desiredWidth / imageRatio);
+            context.drawImage(img, 0, ((canvas.height - (desiredWidth / imageRatio)) / 2), desiredWidth, desiredWidth / imageRatio);
         }
     }
 
