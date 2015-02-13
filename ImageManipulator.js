@@ -16,6 +16,9 @@ var imageQuality = 0.5;
 var imageFormat = "jpeg";
 var canvasBGColor = "#000";
 
+/* 'Singleton' Pattern Canvas Creation
+ * If a canvas has been created before, return it, else create a new one.
+ */
 function createCanvas(width, height) {
     if (typeof mainCanvas == "undefined") {
         mainCanvas = document.createElement("canvas");
@@ -26,6 +29,9 @@ function createCanvas(width, height) {
     return mainCanvas;
 }
 
+/* Checks to determine if the height of the image exceeds the height of
+ * the desired height.
+ */
 function heightIsContrainingSide(widthRatio, heightRatio) {
     if (widthRatio > heightRatio) {
         return true;
@@ -34,14 +40,22 @@ function heightIsContrainingSide(widthRatio, heightRatio) {
     }
 }
 
+/* Returns the aspect ration of width/height as a decimal
+ */
 function getImageAspectRatio(img) {
     return (img.width / img.height);
 }
 
+/* Returns the ratio of an original size to the desired size as a decimal
+ * (desiredSize / originalSize)
+ */
 function getDesiredRatio(original, desired) {
     return (desired / original);
 }
 
+/* Changes the background color of the canvas when an image is drawn
+ * Can be any html acceptable format
+ */
 function changeCanvasBGColor(canvas) {
     var context = canvas.getContext("2d");
     context.globalCompositeOperation = "destination-over";
@@ -53,14 +67,15 @@ function changeCanvasBGColor(canvas) {
 // Exposed Private Function Definitions
 // ---------------------------------------------------------------------------------------
 
-function resizeImage(img, desiredWidth, desiredHeight) {
 
-    //Fit Image in Container Size
+/* Resizes an image to fit within new contraints
+ * Best compared to a sizeToFit function
+ * Returns a dataURL for the new image
+ */
+function resizeImage(img, desiredWidth, desiredHeight) {
     var widthRatio = getDesiredRatio(img.width, desiredWidth);
     var heightRatio = getDesiredRatio(img.height, desiredHeight);
     var imageRatio = getImageAspectRatio(img);
-
-    //Create Canvas with width and height
     var canvas = createCanvas(desiredWidth, desiredHeight);
     var context = canvas.getContext("2d");
     canvas.width = desiredWidth;
@@ -79,12 +94,13 @@ function resizeImage(img, desiredWidth, desiredHeight) {
         }
     }
     context = changeCanvasBGColor(canvas);
-
-    //Extract base64 data from canvas
     var dataURL = canvas.toDataURL("image/" + imageFormat, imageQuality);
     return dataURL;
 }
 
+/* Rotates an image a defined number of degrees clockwise
+ * Returns a dataURL for the new image
+ */
 function rotateClockwise(img, degrees) {
     var canvas = createCanvas(img.width, img.height);
     var context = canvas.getContext("2d");
@@ -98,6 +114,9 @@ function rotateClockwise(img, degrees) {
     return dataURL;
 }
 
+/* Rotates an image a defined number of degrees counter-clockwise
+ * Returns a dataURL for the new image
+ */
 function rotateCounterClockwise(img, degrees) {
     var canvas = createCanvas(img.width, img.height);
     var context = canvas.getContext("2d");
@@ -111,6 +130,10 @@ function rotateCounterClockwise(img, degrees) {
     return dataURL;
 }
 
+/* Checks if an image is in the portrait orientation
+ * Will return false for square images
+ * Returns boolean
+ */
 function isPortraitImage(img) {
     if (img.height > img.width) {
         return true;
@@ -119,18 +142,34 @@ function isPortraitImage(img) {
     }
 }
 
+/* Destroys the working canvas created for manipulations
+ * Returns undefined
+ */
 function destroyCanvas() {
     mainCanvas = undefined;
 }
 
+/* Sets the image quality for the output image
+ * Takes decimal between 0 and 1
+ * Returns undefined
+ */
 function setImageQuality(quality) {
     imageQuality = quality;
 }
 
+/* Sets the image format for the output image
+ * Takes string image type - png, gif, jpg
+ * Returns undefined
+ */
 function setImageFormat(format) {
     imageFormat = format;
 }
 
+/* Sets the image background color for the output image
+ * Changes the letterboxing color around the image
+ * Takes decimal between 0 and 1
+ * Returns undefined
+ */
 function setBGColor(hexColor) {
     canvasBGColor = hexColor;
 }
