@@ -13,6 +13,7 @@ function ImageManipulator() {
 var mainCanvas;
 var imageQuality = 0.5;
 var imageFormat = "jpeg";
+var canvasBGColor = "#000";
 
 function resizeImage(img, desiredWidth, desiredHeight) {
 
@@ -39,6 +40,7 @@ function resizeImage(img, desiredWidth, desiredHeight) {
             context.drawImage(img, 0, ((canvas.height - (desiredWidth / imageRatio)) / 2), desiredWidth, desiredWidth / imageRatio);
         }
     }
+    context = changeCanvasBGColor(canvas);
 
     //Extract base64 data from canvas
     var dataURL = canvas.toDataURL("image/" + imageFormat, imageQuality);
@@ -53,6 +55,7 @@ function rotateClockwise(img, degrees) {
     context.translate(img.height, 0);
     context.rotate(degrees * (Math.PI / 180));
     context.drawImage(img, 0, 0);
+    context = changeCanvasBGColor(canvas);
     var dataURL = canvas.toDataURL("image/" + imageFormat, imageQuality);
     return dataURL;
 }
@@ -65,8 +68,16 @@ function rotateCounterClockwise(img, degrees) {
     context.translate(0, img.width);
     context.rotate(-degrees * (Math.PI / 180));
     context.drawImage(img, 0, 0);
+    context = changeCanvasBGColor(canvas);
     var dataURL = canvas.toDataURL("image/" + imageFormat, imageQuality);
     return dataURL;
+}
+
+function changeCanvasBGColor(canvas) {
+    var context = canvas.getContext("2d");
+    context.globalCompositeOperation = "destination-over";
+    context.fillStyle = canvasBGColor;
+    context.fillRect(0, 0, canvas.width, canvas.height);
 }
 
 function isPortraitImage(img) {
@@ -115,6 +126,10 @@ function setImageFormat(format) {
     imageFormat = format;
 }
 
+function setBGColor(hexColor) {
+    canvasBGColor = hexColor;
+}
+
 // Public Functions
 // ---------------------------------------------------------------------------------------
 
@@ -139,5 +154,8 @@ ImageManipulator.prototype = {
     },
     setImageFormat: function(format) {
         return setImageFormat(format);
+    },
+    setBGColor: function(color) {
+        return setBGColor(color);
     }
 };
