@@ -11,8 +11,10 @@ function ImageManipulator() {
 // ---------------------------------------------------------------------------------------
 
 var mainCanvas;
+var imageQuality = 0.5;
+var imageFormat = "jpeg";
 
-function resizeImage(img, desiredWidth, desiredHeight, format) {
+function resizeImage(img, desiredWidth, desiredHeight) {
 
     //Fit Image in Container Size
     var widthRatio = getDesiredRatio(img.width, desiredWidth);
@@ -39,13 +41,8 @@ function resizeImage(img, desiredWidth, desiredHeight, format) {
     }
 
     //Extract base64 data from canvas
-    var dataURL = canvas.toDataURL("image/" + format);
-    var base64String = dataURL.replace(/^data:image\/(jpeg|png|jpg|gif);base64,/, "");
-    return base64String;
-}
-
-function changeImageFormat(img, format) {
-    return resizeImage(img, img.width, img.height, format);
+    var dataURL = canvas.toDataURL("image/" + imageFormat, imageQuality);
+    return dataURL;
 }
 
 function rotateRight(img, degrees) {
@@ -56,9 +53,8 @@ function rotateRight(img, degrees) {
     context.translate(img.height, 0);
     context.rotate(degrees * (Math.PI / 180));
     context.drawImage(img, 0, 0);
-    var dataURL = canvas.toDataURL();
-    var base64String = dataURL.replace(/^data:image\/(jpeg|png|jpg|gif);base64,/, "");
-    return base64String;
+    var dataURL = canvas.toDataURL("image/" + imageFormat, imageQuality);
+    return dataURL;
 }
 
 function rotateLeft(img, degrees) {
@@ -69,9 +65,8 @@ function rotateLeft(img, degrees) {
     context.translate(0, img.width);
     context.rotate(-degrees * (Math.PI / 180));
     context.drawImage(img, 0, 0);
-    var dataURL = canvas.toDataURL();
-    var base64String = dataURL.replace(/^data:image\/(jpeg|png|jpg|gif);base64,/, "");
-    return base64String;
+    var dataURL = canvas.toDataURL("image/" + imageFormat, imageQuality);
+    return dataURL;
 }
 
 function isPortraitImage(img) {
@@ -104,14 +99,20 @@ function createCanvas(width, height) {
         mainCanvas.setAttribute("id", "ImageManipulatorCanvas");
         mainCanvas.setAttribute("width", width);
         mainCanvas.setAttribute("height", height);
-        document.body.appendChild(mainCanvas);
     }
     return mainCanvas;
 }
 
 function destroyCanvas() {
-    mainCanvas.parentNode.removeChild(mainCanvas);
     mainCanvas = undefined;
+}
+
+function setImageQuality(quality) {
+    imageQuality = quality;
+}
+
+function setImageFormat(format) {
+    imageFormat = format;
 }
 
 // Public Functions
@@ -124,9 +125,6 @@ ImageManipulator.prototype = {
     isPortraitImage: function(img) {
         return isPortraitImage(img);
     },
-    changeImageFormat: function(img, format) {
-        return changeImageFormat(img, format);
-    },
     rotateRight: function(img, degrees) {
         return rotateRight(img, degrees);
     },
@@ -135,5 +133,11 @@ ImageManipulator.prototype = {
     },
     destroyCanvas: function() {
         return destroyCanvas();
+    },
+    setImageQuality: function(quality) {
+        return setImageQuality(quality);
+    },
+    setImageFormat: function(format) {
+        return setImageFormat(format);
     }
 };
