@@ -10,6 +10,8 @@ function ImageManipulator() {
 // Private Functions / Properties
 // ---------------------------------------------------------------------------------------
 
+var mainCanvas;
+
 function resizeImage(img, desiredWidth, desiredHeight, format) {
 
     //Fit Image in Container Size
@@ -17,29 +19,21 @@ function resizeImage(img, desiredWidth, desiredHeight, format) {
     var heightRatio = getDesiredRatio(img.height, desiredHeight);
     var imageRatio = getImageAspectRatio(img);
 
-    createCanvas(desiredWidth, desiredHeight);
-
     //Create Canvas with width and height
-    var canvas = document.getElementById("ImageManipulatorCanvas");
+    var canvas = createCanvas(desiredWidth, desiredHeight);
     var context = canvas.getContext("2d");
+    canvas.width = desiredWidth;
+    canvas.height = desiredHeight;
     if (heightIsContrainingSide(widthRatio, heightRatio) === true) {
         if (isPortraitImage(img) === true) {
-            canvas.width = desiredWidth;
-            canvas.height = desiredHeight;
             context.drawImage(img, 0, 0, desiredHeight * imageRatio, desiredHeight);
         } else {
-            canvas.width = desiredWidth;
-            canvas.height = desiredHeight;
             context.drawImage(img, 0, 0, desiredHeight * imageRatio, desiredHeight);
         }
     } else {
         if (isPortraitImage(img) === true) {
-            canvas.width = desiredWidth;
-            canvas.height = desiredHeight;
             context.drawImage(img, 0, 0, desiredWidth, desiredWidth / imageRatio);
         } else {
-            canvas.width = desiredWidth;
-            canvas.height = desiredHeight;
             context.drawImage(img, 0, 0, desiredWidth, desiredWidth / imageRatio);
         }
     }
@@ -47,7 +41,6 @@ function resizeImage(img, desiredWidth, desiredHeight, format) {
     //Extract base64 data from canvas
     var dataURL = canvas.toDataURL("image/" + format);
     var base64String = dataURL.replace(/^data:image\/(jpeg|png|jpg|gif);base64,/, "");
-    destroyCanvas();
     return base64String;
 }
 
@@ -56,8 +49,7 @@ function changeImageFormat(img, format) {
 }
 
 function rotateRight(img, degrees) {
-    createCanvas(img.width, img.height);
-    var canvas = document.getElementById("ImageManipulatorCanvas");
+    var canvas = createCanvas(img.width, img.height);
     var context = canvas.getContext("2d");
     canvas.width = img.height;
     canvas.height = img.width;
@@ -66,13 +58,11 @@ function rotateRight(img, degrees) {
     context.drawImage(img, 0, 0);
     var dataURL = canvas.toDataURL();
     var base64String = dataURL.replace(/^data:image\/(jpeg|png|jpg|gif);base64,/, "");
-    destroyCanvas();
     return base64String;
 }
 
 function rotateLeft(img, degrees) {
-    createCanvas(img.width, img.height);
-    var canvas = document.getElementById("ImageManipulatorCanvas");
+    var canvas = createCanvas(img.width, img.height);
     var context = canvas.getContext("2d");
     canvas.width = img.height;
     canvas.height = img.width;
@@ -81,7 +71,6 @@ function rotateLeft(img, degrees) {
     context.drawImage(img, 0, 0);
     var dataURL = canvas.toDataURL();
     var base64String = dataURL.replace(/^data:image\/(jpeg|png|jpg|gif);base64,/, "");
-    destroyCanvas();
     return base64String;
 }
 
@@ -110,16 +99,19 @@ function getDesiredRatio(original, desired) {
 }
 
 function createCanvas(width, height) {
-    var canvas = document.createElement("canvas");
-    canvas.setAttribute("id", "ImageManipulatorCanvas");
-    canvas.setAttribute("width", width);
-    canvas.setAttribute("height", height);
-    document.body.appendChild(canvas);
+    if (typeof mainCanvas == "undefined") {
+        mainCanvas = document.createElement("canvas");
+        mainCanvas.setAttribute("id", "ImageManipulatorCanvas");
+        mainCanvas.setAttribute("width", width);
+        mainCanvas.setAttribute("height", height);
+        document.body.appendChild(mainCanvas);
+    }
+    return mainCanvas;
 }
 
 function destroyCanvas() {
-    var canvas = document.getElementById("ImageManipulatorCanvas");
-    canvas.parentNode.removeChild(canvas);
+    mainCanvas.parentNode.removeChild(mainCanvas);
+    mainCanvas = undefined;
 }
 
 // Public Functions
@@ -140,5 +132,8 @@ ImageManipulator.prototype = {
     },
     rotateLeft: function(img, degrees) {
         return rotateLeft(img, degrees);
+    },
+    destroyCanvas: function() {
+        return destroyCanvas();
     }
 };
