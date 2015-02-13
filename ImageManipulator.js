@@ -45,7 +45,7 @@ function resizeImage(img, desiredWidth, desiredHeight) {
     return dataURL;
 }
 
-function rotateRight(img, degrees) {
+function rotateClockwise(img, degrees) {
     var canvas = createCanvas(img.width, img.height);
     var context = canvas.getContext("2d");
     canvas.width = img.height;
@@ -57,7 +57,7 @@ function rotateRight(img, degrees) {
     return dataURL;
 }
 
-function rotateLeft(img, degrees) {
+function rotateCounterClockwise(img, degrees) {
     var canvas = createCanvas(img.width, img.height);
     var context = canvas.getContext("2d");
     canvas.width = img.height;
@@ -125,11 +125,11 @@ ImageManipulator.prototype = {
     isPortraitImage: function(img) {
         return isPortraitImage(img);
     },
-    rotateRight: function(img, degrees) {
-        return rotateRight(img, degrees);
+    rotateClockwise: function(img, degrees) {
+        return rotateClockwise(img, degrees);
     },
-    rotateLeft: function(img, degrees) {
-        return rotateLeft(img, degrees);
+    rotateCounterClockwise: function(img, degrees) {
+        return rotateCounterClockwise(img, degrees);
     },
     destroyCanvas: function() {
         return destroyCanvas();
