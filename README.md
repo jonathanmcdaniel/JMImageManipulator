@@ -1,4 +1,6 @@
 # JMImageManipulator
+[![Code Climate](https://codeclimate.com/github/jonathanmcdaniel/JMImageManipulator/badges/gpa.svg)](https://codeclimate.com/github/jonathanmcdaniel/JMImageManipulator)
+
 A javascript class to manage basic image manipulation in a modularized container. Resizing the dimensions of an image to fit a contraint while maintaining the aspect ratio is the main function of this class. Rotation is also supported for both clockwise and counter-clockwise movements. The class uses the HTML5 canvas to achieve its goals. The class creates and destroys the canvas as needed so that no additional work or cleanup is required by the developer.
 
 ### Table of Contents
